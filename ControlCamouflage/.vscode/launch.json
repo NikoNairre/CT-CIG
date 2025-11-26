@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "ControlNext_custom_test",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "test_controlnext_custom.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--pretrained_model_name_or_path", "stabilityai/stable-diffusion-xl-base-1.0",
+                "--unet_model_name_or_path", "/cver/yhqian/Projects/ControlNeXt/ControlCamouflage-Train_v1/train/example_fiam_outlined/checkpoints/final/unet_weight_increasements.safetensors" ,  //"Eugeoter/controlnext-sdxl-vidit-depth", //
+                "--controlnet_model_name_or_path", "/cver/yhqian/Projects/ControlNeXt/ControlCamouflage-Train_v1/train/example_fiam_outlined/checkpoints/final/controlnet.safetensors" ,   //"Eugeoter/controlnext-sdxl-vidit-depth", //
+                "--controlnet_scale", "1.2" ,
+                "--vae_model_name_or_path", "madebyollin/sdxl-vae-fp16-fix" ,
+                "--validation_prompt", "Fawn is in leaves and brush" ,
+                "--validation_image", "examples/camouflage/COD_COD10K_COD10K-CAM-2-Terrestrial-28-Deer-1779.png" ,  //input depth image
+                "--output_dir", "examples/camouflage" ,
+                "--width", "512" ,      //1068
+                "--height", "512" ,     //799
+                "--load_weight_increasement",
+                //"--positive_prompt", "photorealistic, high quality, camouflaged",
+                //"--enable_xformers_memory_efficient_attention"            
+            ]
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "ControlNext_train_debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "train_controlnext.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--pretrained_model_name_or_path", "stabilityai/stable-diffusion-xl-base-1.0" ,
+                "--pretrained_vae_model_name_or_path", "madebyollin/sdxl-vae-fp16-fix" ,
+                "--variant", "fp16" ,
+                "--use_safetensors" ,
+                "--output_dir", "train/example" ,
+                "--checkpoint_dir", "train/example/checkpoints",
+                "--logging_dir", "logs" ,
+                "--resolution", "512" ,
+                "--num_train_epochs", "1",      //正式训练时去掉
+                //"--gradient_checkpointing" ,
+                "--set_grads_to_none" ,
+                "--proportion_empty_prompts", "0.2" ,
+                "--controlnet_scale_factor", "1.0" , //the strength of the controlnet output. For depth, we recommend 1.0, and for canny, we recommend 0.35
+                "--save_weights_increaments" , "True",
+                "--mixed_precision", "fp16" ,
+                //"--enable_xformers_memory_efficient_attention" ,  2.4.1以上，得cu121才能用
+                "--dataset_name", "Nahrawy/VIDIT-Depth-ControlNet" ,
+                "--image_column", "image" ,
+                "--conditioning_image_column", "depth_map" ,
+                "--caption_column", "caption" ,
+                "--validation_prompt", "a stone tower on a rocky island" ,
+                "--validation_image", "examples/vidit_depth/condition_0.png"                
+            ]
+        },
+        {
+            "name": "ControlNext_accelerate_debug",
+            "type": "debugpy",
+            "request": "launch",
+            // 将 "program" 设置为 accelerate CLI 的路径。
+            // 您可能需要提供 accelerate 的完整路径，或者确保它在您的 PATH 环境变量中。
+            // 通常，如果您的 Python 环境已激活，直接写 "accelerate" 即可。
+            "module": "accelerate.commands.launch",
+            "console": "integratedTerminal",
+            "args": [
+                "--num_processes=4", // 强制单进程，便于调试
+                "--multi_gpu", // 如果您确实想调试多GPU，但单步调试会复杂
+                "--gpu_ids=0,1,2,3", // 如果需要明确指定GPU ID给accelerate (通常CUDA_VISIBLE_DEVICES更常用)
+                "train_controlnext.py", // 您的脚本名称
+                // --- 以下是传递给 train_controlnext.py 的参数 ---
+                "--pretrained_model_name_or_path", "stabilityai/stable-diffusion-xl-base-1.0",
+                "--pretrained_vae_model_name_or_path", "madebyollin/sdxl-vae-fp16-fix",
+                "--variant", "fp16",
+                "--use_safetensors",
+                "--output_dir", "train/example_debug_accelerate", // 使用不同的输出目录以避免冲突
+                "--checkpoint_dir", "train/example_debug_accelerate/checkpoints",
+                "--logging_dir", "logs_debug_accelerate",
+                "--resolution", "512",
+                "--num_train_epochs", "1",
+                "--controlnet_lr_decay_start_epoch", "40" ,
+                "--controlnet_lr_decay_end_epoch", "60" ,
+                //"--gradient_checkpointing",
+                "--set_grads_to_none",
+                "--proportion_empty_prompts", "0.1",
+                "--controlnet_scale_factor", "1.2",
+                "--save_weights_increaments", "True", // 注意：如果参数定义是 action="store_true"，则不需要 "True"
+                "--mixed_precision", "fp16",
+                //"--enable_xformers_memory_efficient_attention",
+                //"--dataset_name", "Nahrawy/VIDIT-Depth-ControlNet",
+                "--custom_jsonl_file", "/cver/yhqian/Datasets/LAKERED_DATASET/train/vlm_jsons_train/processed_jsons/processed_vl25_mask_camed.json" ,
+                "--masks_folder", "/cver/yhqian/Datasets/LAKERED_DATASET/train/masks" ,
+                "--images_folder", "/cver/yhqian/Datasets/LAKERED_DATASET/train/images" ,
+                "--image_column", "image",
+                "--conditioning_image_column", "conditioning_image",
+                "--caption_column", "text",
+                "--validation_prompt", "Brown owl on gravel with brown and white speckled feathers",
+                "--validation_image", "examples/camouflage/COD_CAMO_camourflage_00208.png",
+                "--learning_rate", "5e-6",
+                "--positive_prompt_prefix", "photorealistic, high quality, camouflaged",
+                "--train_batch_size", "4", // 建议调试时使用小批量
+                "--validation_steps", "1000", 
+                "--checkpointing_steps", "5000", 
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0,1,2,3" // 在这里设置环境变量，确保 accelerate 只看到指定的GPU
+            },            
+        }
+    ]
+}
