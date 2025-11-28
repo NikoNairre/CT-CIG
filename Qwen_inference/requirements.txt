@@ -1,0 +1,7 @@
+torch
+torchvision
+tqdm
+datasets==3.3.1
+transformers==4.50.0
+bitsandbytes==0.48.1
+qwen-vl-utils==0.0.10
