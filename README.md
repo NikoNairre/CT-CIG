@@ -23,7 +23,6 @@ This is the pytorch implementation of the AAAI 2026 paper "Text-guided Controlla
 ### News
 <hr style="border: 0; height: 1.5px; background-color: #d0d7de;">
 
-#### Full Code, details, tutorials will be added later ...
 + 🔥**2025.11.28**🔥: **Full code**, **checkpoints**, **generated results** and **tutorials** are released!
 + **2025.11.26:** Upload the **data json** files, the **basic code** about model architecture, training and inference.
 + **2025.11.25:** Paper submitted to [arxiv](https://arxiv.org/abs/2511.20218).
