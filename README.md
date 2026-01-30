@@ -121,7 +121,7 @@ We provide our result checkpoints for CT-CIG to support you for quick inference.
 
 unet weights|controlnet weights|generated results
 |-|-|-|
-[Google Drive](https://drive.google.com/file/d/1DLaL_qzemGjM3EVL3FDXRWEpdKqbHrsA/view?usp=drive_link)|[Google Drive](https://drive.google.com/file/d/12JW_gziPNX1evfq9PA5GyFMfLFBx5k4w/view?usp=drive_link)|[Google Drive](https://drive.google.com/file/d/1sHED3jNTlwaIfFBLjlv77K1sp3bbDma0/view?usp=drive_link)
+[Google Drive](https://drive.google.com/file/d/10C5_8nAor4lGhef0_8srP06iowh4uDIN/view?usp=sharing)|[Google Drive](https://drive.google.com/file/d/1XqmF7Km9JB9uMSrL4LPdTMe__mXbOWWz/view?usp=sharing)|[Google Drive](https://drive.google.com/file/d/1sHED3jNTlwaIfFBLjlv77K1sp3bbDma0/view?usp=drive_link)
 
 
 ```sh
